@@ -54,28 +54,7 @@ html {
     max-width: 100%;
     border: 0 none;
     vertical-align: middle; }
-  
-  @font-face {
-    font-family: iconwap;
-    src: url("../../images/iconfont/iconwap.ttf?20170321") format("truetype"), url("../../images/iconfont/iconwap.woff?20170321") format("woff"), url("../../images/iconfont/iconwap.svg?20170321") format("svg"); }
-  [class^="iconn-"],
-  [class*="iconn-"] {
-    font-family: iconwap !important;
-    speak: none;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    display: inline-block;
-    vertical-align: middle;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale; }
-  
-  [class^="iconn-"]:before,
-  [class*="iconn-"]:before {
-    display: block; }
-  
+    
   cite {
     font-style: normal; }
   
@@ -1516,7 +1495,7 @@ html {
       transform: translateY(-50%); }
       .loading {
         height: 12rem;
-        background: url('../trade_img/loading.gif') no-repeat center center;
+        background: url('../images/loading.gif') no-repeat center center;
       }
       .tab-hide {
         display: none
@@ -1807,7 +1786,7 @@ html {
       height: 0.99rem;
       display: inline-block;
       overflow: hidden;
-      background: url(../../images/common/share-icon.png) no-repeat -99rem -99rem;
+      background: url(../images/common/share-icon.png) no-repeat -99rem -99rem;
       background-size: 0.97rem 5.26rem; }
     .opg .m-share-top .weibo .share-icon,
     .opg .m-share-bottom .weibo .share-icon {
@@ -1881,7 +1860,7 @@ html {
       width: 45px;
       height: 45px;
       margin: 0 auto;
-      background: url(../../images/public/loadings.png) no-repeat;
+      background: url(../images/public/loadings.png) no-repeat;
       -webkit-animation: toast 1s steps(4) infinite;
       -moz-animation: toast 1s steps(4) infinite;
       -ms-animation: toast 1s steps(4) infinite;
