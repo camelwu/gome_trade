@@ -4,7 +4,7 @@ const static = require('koa-static')
 const fs = require('fs')
 const app = new Koa()
 const Router = require('koa-router')
-const staticPath = './'
+const staticPath = './static'
 app.use(static(
   path.join(__dirname, staticPath)
 ))

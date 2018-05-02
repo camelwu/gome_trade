@@ -1,26 +1,30 @@
 {
-  "name": "gaosiya",
-  "version": "1.0.0",
-  "description": "app交易列表",
+  "name": "koa-exercise",
+  "version": "1.0.1",
+  "description": "koa+axios+mock输出交易列表",
   "main": "index.js",
   "scripts": {
     "test": "node index.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "ejs": "^2.5.9",
     "koa": "^2.5.1",
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.4.0",
-    "koa-static": "^4.0.2",
-    "npm": "^6.0.0"
+    "koa-static": "^4.0.2"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gaosiya/gome_trade.git"
+    "url": "git+https://github.com/camelwu/gome_trade.git"
   },
-  "author": "sarah",
-  "license": "ISC",
+  "author": "camelwu",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gaosiya/gome_trade/issues"
+    "url": "https://github.com/camelwu/gome_trade/issues"
   },
-  "homepage": "https://github.com/gaosiya/gome_trade#readme"
+  "homepage": "https://github.com/camelwu/gome_trade#readme",
+  "devDependencies": {
+    "mockjs": "^1.0.1-beta3"
+  }
 }
