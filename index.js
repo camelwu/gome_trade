@@ -19,23 +19,30 @@ app.use(convert(logger()));
 app.use(static(
   path.join(__dirname, staticPath)
 ))
-/*app.use(views(__dirname + '/views', {
-  map : {html:'ejs'}
-}))*/
+// logger
+app.use(async (ctx, next) => {
+  const start = new Date();
+  await next();
+  const ms = new Date() - start;
+  console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
+})
 app.use(views(__dirname + '/views', {
-  extension: 'ejs' 
-}));
+  //extension: 'ejs'
+  map: {
+    html: 'ejs'
+  }
+}))
 let list = JSON.parse(fs.readFileSync(__dirname + '/mock/db.json'))
 
 // 路由x
 let router = new Router()
-router.get('/', (ctx, next) => {
+router.get('/', async (ctx, next) => {
   let title = 'hello koa2'
-  
-    ctx.render('index', {
-      title,
-    })
-  
+
+  await ctx.render('index', {
+    title,
+  })
+
 }).get('/transactionCodelist', (ctx) => {
   //let id = ctx.request.body.id || 0;
   ctx.type = 'json'
@@ -50,10 +57,10 @@ router.get('/', (ctx, next) => {
 app
   .use(router.routes())
   .use(router.allowedMethods())
-app.on('error', function(err, ctx){
-    console.log(err)
-    log.error('server error', err, ctx);
-  })
+app.on('error', function (err, ctx) {
+  console.log(err)
+  log.error('server error', err, ctx);
+})
 app.listen(8080, () => {
   console.log('[demo] route-use-middleware is starting at port 8080')
 })
