@@ -4,7 +4,8 @@
   "description": "koa+axios+mock输出交易列表",
   "main": "index.js",
   "scripts": {
-    "test": "node index.js"
+    "dev": "nodemon index.js",
+    "test": "node app.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
