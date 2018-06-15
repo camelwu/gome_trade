@@ -144,11 +144,13 @@ $("#btn1").click(function () {
 })
 
 $(document).ready(function () {
-    $("#grape").hide()    
+    $("#grape").hide()
     if (utils.fHashstr('tag')&&utils.fHashstr('no')) {//detail页面
+        Observer.regist('detail', utils.getDetail())
         utils.getDetail()
     }else{//list页面，还需要修改后续获取数据的参数，post&data！！！
-        utils.getList();      
+        Observer.regist('list', utils.getList())
+        utils.getList();
     }
 })
 $(window).on("hashchange", function() {
@@ -172,6 +174,39 @@ $(document).on('click','.but-box ul li',function(){
     $(".but-box").slideUp(200)
 })
 
-// .mouseleave(function () {
-//     $(".but-box").slideUp();
-// })
+var Observer = (function(){
+    let _messages = {};
+    return {
+        regist:(type, fn)=>{
+            if(typeof _messages[type]==='undefined'){
+                _messages[type] = fn;
+            }else{
+                _messages[type].push(fn);
+            }
+        },
+        fire:(type, args)=>{
+            if(!_messages[type]){
+                return;
+            }
+            var events = {
+                type: type,
+                args: args || {}
+            }
+            for(let i=0;i<_messages[type].length;i++){
+                _messages[type][i].call(this, events);
+            }
+        },
+        remove:(type, fn)=>{
+            if(_messages[type] instanceof Array){
+                for(let i=_messages[type].length-1;i>=0;i--){
+                    _messages[type][i] === fn && _messages[type].splice(i,1);
+                }
+            }
+        }
+    }
+})();
+var ne = new Event('funk');
+Observer.regist('tt',(e)=>{
+    console.log(e.type, e.args.msg)
+})
+Observer.fire('tt',{msg:'paramaters res.'})
