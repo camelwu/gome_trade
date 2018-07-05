@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>javascript</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+  <meta name="screen-orientation" content="portrait" />
+  <meta content="yes" name="apple-mobile-web-app-capable">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="full-screen" content="yes">
+  <meta name="x5-fullscreen" content="true">
+  <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+  <meta http-equiv="X-UA-Compatible" content="IE=8">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .toast-width {
+      width: 60%;
+    }
+
+    .mint-msgbox-title {
+      display: none;
+    }
+
+    .mint-msgbox-message {
+      font-size: .14rem;
+      color: #333333 !important;
+    }
+
+    .mint-msgbox-btn {
+      font-size: .14rem;
+    }
+
+    #app {
+      width: 100%;
+      height: 300px;
+      position: relative;
+    }
+
+    .header {
+      height: 100px;
+      width: 100%;
+      background-color: #333333;
+
+    }
+
+    .lefter {
+      width: 100px;
+      padding: 10px;
+      background-color: #534747;
+      position: absolute;
+      left: 0;
+      top: 100px;
+      bottom: 0;
+    }
+
+    .container {
+      padding: 10px;
+      background-color: #1f178a;
+      position: absolute;
+      top: 100px;
+      bottom: 0;
+      left: 100px;
+      right: 100px;
+      right: 0;
+    }
+
+    .righter {
+      width: 100px;
+      padding: 10px;
+      background-color: #534747;
+      position: absolute;
+      top: 100px;
+      bottom: 0;
+      right: 0;
+    }
+
+    .table {
+      display: table;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .tr {
+      display: table-row;
+      /*row为行，cell为列*/
+      width: 100%;
+      /*height: 100px;*/
+    }
+
+    .td {
+      display: table-cell;
+      width: 100%;
+      /*height: 100px;
+background-color:#E5E5E5;*/
+    }
+
+    .sub-table {
+      width: 100%;
+      height: 100%;
+      display: table;
+    }
+
+    .sub-table-tr {
+      display: table-row;
+      height: 100%;
+    }
+
+    .sub-table-td {
+      display: table-cell;
+      height: 100%;
+      border: 1px solid gray;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    #flexer {
+      width: 100%;
+      height: 300px;
+      background-color: #333333;
+      display: -webkit-flex;
+      /* Safari */
+      display: flex;
+      flex-direction: column;
+    }
+
+    #flexer .toper {
+      width: 100%;
+      height: 100px;
+      flex-grow: 0;
+    }
+
+    #flexer .contain {
+      width: 100%;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: row;
+    }
+
+    .contain .slider {
+      height: 100%;
+      width: 100px;
+      flex-grow: 0;
+    }
+
+    .contain .center {
+      height: 100%;
+      flex-grow: 1;
+      background-color: yellowgreen;
+    }
+
+    .contain .right {
+      height: 100%;
+      width: 100px;
+      flex-grow: 0;
+    }
+
+    .gird_container {
+      display: grid;
+      grid-template-columns: 100px auto;
+      grid-template-rows: 80px auto 80px;
+      grid-column-gap: 10px;
+      grid-row-gap: 15px;
+      grid-template-areas: "header header" "sidebar main" "footer footer";
+    }
+
+    .gird_header {
+      grid-area: header;
+    }
+
+    .gird_main {
+      grid-area: main;
+    }
+
+    .gird_slider {
+      grid-area: sidebar;
+    }
+
+    .gird_foot {
+      grid-area: footer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="table" style="height: 580px;">
+    <div class="tr">
+      <div class="td">header</div>
+    </div>
+    <div class="tr">
+      <div class="td" style="height:400px;">
+        <!-- 需要注意的是，样式中并没有列合并collspan属性，所以，需要插入嵌套table才能实现 -->
+        <div class="sub-table">
+          <div class="sub-table-tr">
+            <div class="sub-table-td" style="width:120px;">slider</div>
+            <div class="sub-table-td">main</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tr">
+      <div class="td">footer</div>
+    </div>
+  </div>
+  <div id="app">
+    <div class="header">header</div>
+    <div class="lefter">slider</div>
+    <div class="container">container</div>
+    <div class="righter">container</div>
+  </div>
+  <div id="flexer">
+    <div class="toper">header</div>
+    <div class="contain">
+      <div class="slider">slider</div>
+      <div class="center">container</div>
+      <div class="right">container</div>
+    </div>
+  </div>
+  <div class="gird_container">
+    <div class="gird_header">header</div>
+    <div class="gird_slider">left</div>
+    <div class="gird_main">main</div>
+    <div class="gird_foot">footer</div>
+  </div>
+  <script type="text/javascript">
+    !(function (w, d) {
+      function loadTemplate(routeObject, view) {
+        var xmlhttp = window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject('Microsoft.XMLHTTP');
+        xmlhttp.onreadystatechange = function () {
+          if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            loadView(routeObject, view, xmlhttp.responseText);
+          }
+        }
+        xmlhttp.open('GET', routeObject.template, true);
+        xmlhttp.send();
+      }
+      function loadView(routeObject, viewElement, viewHtml) {
+        var model = {};  
+        routeObject.controller(model);
+        viewHtml = replaceToken(viewHtml, model);
+        viewElement.innerHTML = viewHtml;
+      }
+      function replaceToken(viewHtml, model) {
+        var modelProps = Object.getOwnPropertyNames(model)
+        modelProps.forEach(function (element, index, array) {
+          viewHtml = viewHtml.replace('{{' + element + '}}', model[element]);
+        });
+        return viewHtml;
+      }
+      //最后，我们将插件曝光于js全局范围外
+
+      //attach the mvc object to the window  
+      w['jsMvc'] = new jsMvc();
+      var _defaultRoute = null, //默认路由
+        _viewElement = null, //将视图元素存储到一个变量中，进行复用
+        routeObj = function (c, r, t) {
+          this.controller = c;
+          this.route = r;
+          this.template = t;
+        },
+        //function to start the mvc support  
+        startMvc = function () {
+          var pageHash = w.location.hash.replace('#', ''),
+            routeName = null,
+            routeObj = null;
+          routeName = pageHash.replace('/', ''); //get the name of the route from the hash     
+          routeObj = this._routeMap[routeName]; //get the route object
+          //Set to default route object if no route found
+          if (!routeObj) {
+            routeObj = _defaultRoute;
+          }
+          loadTemplate(routeObj, _viewElement, pageHash); //fetch and set the view of the route  
+        },
+        jsMvc = function () {
+          //mapping object for the routes  
+          this._routeMap = {};
+        };
+      jsMvc.prototype = {
+        AddRoute: function (controller, route, template) {
+          this._routeMap[route] = new routeObj(controller, route, template);
+        },
+        Initialize: function () {
+          var startMvcDelegate = startMvc.bind(this);
+          //get the html element that will be used to render the view
+          _viewElement = d.querySelector('[view]');
+          if (!_viewElement) return; //do nothing if view element is not found
+          //Set the default route
+          _defaultRoute = this._routeMap[Object.getOwnPropertyNames(this._routeMap)[0]];
+          //start the Mvc manager  
+          w.onhashchange = startMvcDelegate;
+          startMvcDelegate();
+        }
+      }
+    })(window, document);
+    var ary = [67, 889, 0, 3333, 88];
+    var as = [1, 2, 3, 4];
+    as.from(ary);
+    console.log(as);
+    var t2y = Math.max.apply(null, ary);
+    var t2a = Math.min.call(null, ary[0], ary[2], ary[3]);
+    console.log(t2y);
+    console.log(t2a);
+    var testStr = "now test001b test002",
+      myExp = new RegExp('a+b+c'),
+      re = /test(\d+)/, //只匹配一次
+      a = re.test(testStr),
+      b = re[Symbol.search](testStr),
+      t = myExp.toString(),
+      r = re.exec(testStr);
+    console.log(a + '\t\n' + r + '\t\n' + t); // test001  001 返回匹配结果，以及子项
+    console.log(r.length); //2   返回内容的长度
+    console.log(r.input); //now test001 test002    代表每次匹配成功的字符串 
+    console.log(r[0]); //test001   
+    console.log(r[1]); //001    代表每次匹配成功字符串中的第一个子项 (\d+) 
+    console.log(r.index); //  4   每次匹配成功的字符串中的第一个字符的位置
+    console.log(testStr.match(re));
+    var p = /\w{1,64}@([-a-zA-z0-9]{1,63}\.)+[a-zA-Z0-9]{1,63}/;
+    console.log(p.test('q@a.qq.com'));
+    //-----------------------------------------------------
+    function quickSort(arr) {
+      if (arr.length <= 1) {
+        return arr
+      }; //注意不要写arr===[] 永远都是false
+      var pivotIndex = Math.floor(arr.length / 2);
+      var pivot = arr.splice(pivotIndex, 1)[0]; //数组被切掉了pivot
+      var left = [];
+      var right = [];
+      for (var i = 0; i < arr.length; i++) {
+        if (arr[i] < pivot) {
+          left.push(arr[i]);
+        } else {
+          right.push(arr[i]);
+        }
+      }
+      return quickSort(left).concat(pivot, quickSort(right));
+    }
+    var compare = function (n0, n1) {
+        return n0 - n1;
+      },
+      arr = [];
+    /*一万条随机数*/
+    for (var n = 0; n < 10000; n++) {
+      arr.push(Math.round(Math.random() * 10));
+    }
+    console.log(arr)
+    var text = function (param) {
+      var start, end;
+      // 记录执行的起始时间
+      start = new Date().getTime();
+      // 执行待测试的方法
+      if ('fn' == param) {
+        quickSort(arr);
+      } else {
+        arr.sort(compare);
+      }
+      // 记录执行的结束时间
+      end = new Date().getTime();
+      // 输出待测试方法所运行的结果和耗时
+      console.log(param + "排序完成，耗时" + (end - start) + "毫秒");
+    }
+    text('fn');
+    text('');
+    var arr = [];
+    setTimeout(function () {
+      arr.push(1)
+    }); //0
+    Promise.resolve().then(() => {
+      arr.push(2)
+    });
+    new Promise(() => {
+      arr.push(7)
+    });
+    async function a() {
+      arr.push(3);
+      b();
+      arr.push(4);
+    }
+    async function b() {
+      arr.push(5)
+    }
+    //a();
+    arr.push(6);
+    setTimeout(() => {
+      console.log(arr.join(""))
+    })
+
+    function thiser() {
+      this.name = 'dd'
+      this.age = '20'
+      this.getName = function () {
+        return this.name;
+      }
+      this.getAge = () => {
+        return this.age;
+      }
+    }
+    var mix = function () {
+      var i = 1,
+        len = arguments.length,
+        target = arguments[0],
+        arg;
+      for (; i < len; i++) {
+        arg = arguments[i]
+        for (var p in arg) {
+          target[p] = arg[p]
+        }
+      }
+      return target;
+    }
+    var foo = new thiser()
+    //mix(foo,thiser)
+    console.log(foo.getAge())
+
+    function getHashPara(n) {
+      let hashstr = window.location.hash.substr(1),
+        reg = new RegExp('(^|&)' + n + '=([^&]*)(&|$)')
+      res = hashstr.match(reg);
+      if (res != null) return unescape(res[2]);
+      return null;
+    }
+    console.log(getHashPara('tets'))
+    var Observer = (function () {
+      let __messages = {};
+      return {
+        regist: (type, fn) => {
+          if (typeof __messages[type] === 'undefined') {
+            __messages[type] = [fn];
+          } else {
+            __messages[type].push(fn);
+          }
+        },
+        fire: (type, args) => {
+          if (!__messages[type]) {
+            return;
+          }
+          var events = {
+              type: type,
+              args: args || {}
+            },
+            i = 0,
+            len = __messages[type].length;
+          for (; i < len; i++) {
+            __messages[type][i].call(this, events);
+          }
+        },
+        remove: (type, fn) => {
+          if (__messages[type] instanceof Array) {
+            for (let i = __messages[type].length - 1; i >= 0; i--) {
+              __messages[type][i] === fn && __messages[type].splice(i, 1);
+            }
+          }
+        }
+      }
+    })();
+    //var ne = new Event('funk');
+    Observer.regist('tt', (e) => {
+      console.log(e.type, e.args.msg);
+    });
+    Observer.fire('tt', {
+      msg: 'paramaters res.'
+    });
+  </script>
+</body>
+
+</html>

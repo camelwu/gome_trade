@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <style>
+        .square {
+            width:100px;
+            height:100px;
+            border: #000 1px solid;
+            float: left;
+        }
+        .ttt {
+            width: 303px;
+            height: 303px;
+        }
+      /*
+       * 行高 h
+       * 最大行数 n
+       * ...更多容器的宽 w
+       * 字号 f
+       */
+      .cc {
+        width: 300px;
+      }
+      .ellipsis {
+          position: relative;
+          width: 260px;
+          max-height: 36px; /* h*n */
+          line-height: 18px; /* h */
+          overflow: hidden;
+      }
+      .ellipsis-container {
+          position: relative;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2; /* n */
+          font-size: 20px; /* w */
+      }
+      .ellipsis-content {
+          color: #919599;
+          display: inline;
+          vertical-align: top;
+          font-size: 13px; /* f */
+      }
+      .ellipsis-ghost {
+          position:absolute;
+          z-index: 1;
+          top: 0;
+          left: 50%;
+          width: 100%;
+          height: 100%;
+          color: #000;
+      }
+      .ellipsis-ghost:before {
+          content: "";
+          display: block;
+          float: right;
+          width: 50%;
+          height: 100%;
+      }
+      .ellipsis-placeholder {
+          content: "";
+          display: block;
+          float: right;
+          width: 50%;
+          height: 36px; /* h*n */
+      }
+      .ellipsis-more {
+          position: relative;
+          float: right;
+          font-size: 13px; /* f */
+          width: 20px; /* w */
+          height: 18px; /* h */
+          margin-top: -18px; /* -h */
+      }
+      </style>
+      <script type="text/template" id="temp002">
+      <div class="ellipsis">
+          <div class="ellipsis-container">
+              <div class="ellipsis-content">(<%=content%>)。</div>
+              <div class="ellipsis-ghost">
+                  <div class="ellipsis-placeholder"></div>
+                  <div class="ellipsis-more">...</div>
+              </div>
+          </div>
+      </div>
+    </script>
+    <!-- <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script> -->
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+  <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="ttt"></div>
+    <script type="text/babel">
+      var Board = React.createClass({
+      getInitialState: function() {
+        return {
+          data:0,
+          squares: Array(9).fill(null),
+          disable:1
+        };
+      },
+    handleClick(i) {
+    const squares = this.state.squares.slice();
+    squares[i] = 'X';
+    this.setState({squares: squares});
+    console.log(i);
+  },
+      render: function () {
+        const squares = this.state.squares.slice();
+        console.log(squares)
+        return (
+        <div className="ttt">
+        {
+            squares.map(function (ele, i) {
+            return <Square i = {i} onClick={(i) => this.handleClick(i)}></Square>
+            })
+        }
+        </div>
+        );
+      }
+    });
+    var Square = React.createClass({
+      getInitialState: function() {
+        return {
+            value: null
+        };
+      },
+      
+        render: function () {
+            return (
+        <button className="square" onClick={() => this.setState({value: 'X'})}>
+            {this.state.value}
+        </button>
+      );
+        }
+    });
+      ReactDOM.render(
+         <div>
+            <Board />
+         </div>,
+        document.getElementById('ttt')
+      );
+    </script>
+    <div id="root">dd</div>
+    <script type="text/babel">
+      var Button = React.createClass({
+      getInitialState: function() {
+        return {
+          data:0
+        };
+      },
+      setNewNumber: function() {
+        this.setState({data: this.state.data + 1})
+      },
+      render: function () {
+          return (
+             <div>
+                <button onClick = {this.setNewNumber}>{this.state.data}</button>
+                <Content myNumber = {this.state.data}></Content>
+             </div>
+          );
+        }
+    });
+    var Content = React.createClass({
+      componentWillMount:function() {
+          console.log('Component WILL MOUNT!')
+      },
+      componentDidMount:function() {
+           console.log('Component DID MOUNT!')
+      },
+      componentWillReceiveProps:function(newProps) {
+            console.log('Component WILL RECEIVE PROPS!')
+      },
+      shouldComponentUpdate:function(newProps, newState) {
+            return true;
+      },
+      componentWillUpdate:function(nextProps, nextState) {
+            console.log('Component WILL UPDATE!');
+      },
+      componentDidUpdate:function(prevProps, prevState) {
+            console.log('Component DID UPDATE!')
+      },
+      componentWillUnmount:function() {
+             console.log('Component WILL UNMOUNT!')
+      },
+
+        render: function () {
+          return (
+            <div>
+              <h3>{this.props.myNumber}</h3>
+            </div>
+          );
+        }
+    });
+      ReactDOM.render(
+         <div>
+            <Button />
+         </div>,
+        document.getElementById('root')
+      );
+      // ReactDOM.render(
+      //   <h1>Hello, world!</h1>,
+      //   document.getElementById('root')
+      // );
+
+    </script>
+    <div id="myvm">
+      <input data-val="vals" type="text" id="myinput">
+      <span data-model="vals" id="myel"></span>
+    </div>
+    <input q-event="value" ng-bind="value" type="text" id="input">
+    <div q-event="text" ng-bind="value" id="el"></div>
+    <script>
+        function pf(x,y){
+            let c = 0;
+            if(isNaN(x)||isNaN(y)){
+                return c;
+            }
+            c = Math.pow(x,y);
+            return c;
+        }
+        function pp(x,y){
+            let c = 1;
+            //c = x;
+            while(y){
+                c *= x;
+                --y;
+            }
+            return c;
+        }
+        console.log(pf(2,3),pp(2,3));
+      var eles = [document.getElementById('myel'), document.getElementById('myinput')],
+      model = {
+        vals: 'hello!'
+      };
+    var elems = [document.getElementById('el'), document.getElementById('input')]
+    ,data = {
+        value: 'hello!'
+    }
+    ,command = {
+        text: function(str) {
+            this.innerHTML = str;
+        },
+        value: function(str) {
+            this.setAttribute('value', str);
+        }
+    }, scan = function(elems) {
+        /**
+         * 扫描带指令的节点属性
+         */
+        for (var i = 0, len = elems.length; i < len; i++) {
+            var elem = elems[i];
+            elem.command = {};
+            for (var j = 0, len1 = elem.attributes.length; j < len1; j++) {
+                var attr = elem.attributes[j];
+                if (attr.nodeName.indexOf('q-event') >= 0) {
+                    /**
+                     * 调用属性指令
+                     */
+                    var dataKey = elem.getAttribute('ng-bind') || undefined;
+                    /**
+                     * 进行数据初始化
+                     */
+                    command[attr.nodeValue].call(elem, data[dataKey]);
+                    elem.command[attr.nodeValue] = data[dataKey];
+                }
+            }
+        }
+    }
+
+    /**
+     * 脏循环检测
+     * @param  {[type]} elems [description]
+     * @return {[type]}       [description]
+     */
+    var digest = function(elems) {
+        /**
+         * 扫描带指令的节点属性
+         */
+        for (var i = 0, len = elems.length; i < len; i++) {
+            var elem = elems[i];
+            for (var j = 0, len1 = elem.attributes.length; j < len1; j++) {
+                var attr = elem.attributes[j];
+                if (attr.nodeName.indexOf('q-event') >= 0) {
+                    /**
+                     * 调用属性指令
+                     */
+                    var dataKey = elem.getAttribute('ng-bind') || undefined;
+
+                    /**
+                     * 进行脏数据检测，如果数据改变，则重新执行指令，否则跳过
+                     */
+                    if(elem.command[attr.nodeValue] !== data[dataKey]){
+
+                        command[attr.nodeValue].call(elem, data[dataKey]);
+                        elem.command[attr.nodeValue] = data[dataKey];
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * 初始化数据
+     */
+    scan(elems);
+
+    /**
+     * 可以理解为做数据劫持监听
+     */
+    function $digest(value){
+        var list = document.querySelectorAll('[ng-bind='+ value + ']');
+        digest(list);
+    }
+
+    /**
+     * 输入框数据绑定监听
+     */
+    if(document.addEventListener){
+        eles[1].addEventListener('keyup', function(e) {
+          model.vals = e.target.value;
+            //$digest(e.target.getAttribute('ng-bind'));
+        }, false);
+        elems[1].addEventListener('keyup', function(e) {
+            data.value = e.target.value;
+            $digest(e.target.getAttribute('ng-bind'));
+        }, false);
+    }else{
+        elems[1].attachEvent('onkeyup', function(e) {
+            data.value = e.target.value;
+            $digest(e.target.getAttribute('ng-bind'));
+        }, false);
+        eles[1].attachEvent('onkeyup', function(e) {
+          model.vals = e.target.value;
+            //$digest(e.target.getAttribute('ng-bind'));
+        }, false);
+    }
+
+    setTimeout(function() {console.log('do')
+        data.value = 'fuck';
+        /**
+         * 这里问啥还要执行$digest这里关键的是需要手动调用$digest方法来启动脏检测
+         */
+        $digest('value');
+    }, 2000)
+
+    </script>
+    <div id="id001">111</div>
+    <div id="output"></div>
+    <script>    let hosts = "http://mshop.m.atguat.com.cn/"
+      let ar= [1,2,3,1,'a',1,'a'],as = [1,1,1,1,3,3,3,5,5,6,6,7,7],
+        ay = ar.filter(function(ele,index,array){
+        console.log(index, ele)
+        return index===array.indexOf(ele)
+      }),
+      aa = Math.max.apply(null,as)
+    console.log(ay)
+    
+    
+    console.log(aa)
+    
+    function fy(fn){
+      var c = new Promise();
+      return function(str){
+        return c(fn(str));
+      }
+    }
+    function fun1(){
+this.name = 'jown'
+this.age = 25
+}
+fun1.prototype.getName = function(){
+return this.name
+}
+var fun2 = new fun1()
+    console.log(fun1.prototype);
+
+
+      </script>
+  </body>
+</html>
