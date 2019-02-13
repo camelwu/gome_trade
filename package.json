@@ -4,7 +4,12 @@
   "description": "koa+axios+mock输出交易列表",
   "main": "index.js",
   "scripts": {
-    "test": "node index.js"
+    "start": "node index.js",
+    "lint:js": "eslint *.js",
+    "lint:css": "stylelint *.less",
+    "lint:json": "jsonlint --quiet *.json",
+    "lint:markdown": "markdownlint --config .markdownlint.json *.md",
+    "test": "mocha tests/"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -31,6 +36,15 @@
   },
   "homepage": "https://github.com/camelwu/gome_trade#readme",
   "devDependencies": {
-    "mockjs": "^1.0.1-beta3"
-  }
+    "chai": "^4.1.2",
+    "eslint": "^5.6.0",
+    "eslint-config-google": "^0.10.0",
+    "jsonlint": "^1.6.2",
+    "markdownlint-cli": "^0.5.0",
+    "mocha": "^4.0.1",
+    "mockjs": "^1.0.1-beta3",
+    "stylelint": "^8.2.0",
+    "stylelint-config-standard": "^17.0.0"
+  },
+  "keywords": []
 }
