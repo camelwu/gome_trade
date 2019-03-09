@@ -38,11 +38,16 @@ let list = JSON.parse(fs.readFileSync(__dirname + '/mock/db.json'))
 let router = new Router()
 router.get('/', async (ctx, next) => {
   let title = 'hello koa2'
-
+  
   await ctx.render('index', {
-    title,
+    title
   })
 
+}).get('/home', async (ctx, next) => {
+  let title = 'hello koa2'
+  await ctx.render('home', {
+    title,
+  })
 }).get('/transactionCodelist', (ctx) => {
   //let id = ctx.request.body.id || 0;
   ctx.type = 'json'
@@ -61,6 +66,6 @@ app.on('error', function (err, ctx) {
   console.log(err)
   log.error('server error', err, ctx);
 })
-app.listen(8080, () => {
-  console.log('[demo] route-use-middleware is starting at port 8080')
+app.listen(8888, () => {
+  console.log('[demo] route-use-middleware is starting at port 8888')
 })
